@@ -13,7 +13,7 @@ import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
-@Service(value = "todoService")
+@Service(value = "quoteService")
 public class TodoServiceImpl implements TodoService
 {
     @Autowired
@@ -81,9 +81,9 @@ public class TodoServiceImpl implements TodoService
         Todo newTodo = todorepos.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(Long.toString(id)));
 
-        if (todo.getTodo() != null)
+        if (todo.getDescription() != null)
         {
-            newTodo.setTodo(todo.getTodo());
+            newTodo.setDescription(todo.getDescription());
         }
 
         if (todo.getUser() != null)

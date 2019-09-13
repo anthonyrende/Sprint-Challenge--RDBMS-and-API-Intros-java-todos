@@ -103,9 +103,9 @@ public class User extends Auditable
         return todos;
     }
 
-    public void setQuotes(List<Quote> quotes)
+    public void setTodos(List<Todo> todos)
     {
-        this.quotes = quotes;
+        this.todos = todos;
     }
 
     public List<SimpleGrantedAuthority> getAuthority()
