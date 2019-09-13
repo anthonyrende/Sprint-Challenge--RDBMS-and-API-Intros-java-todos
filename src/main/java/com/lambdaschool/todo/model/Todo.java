@@ -1,36 +1,40 @@
 package com.lambdaschool.todo.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Date;
+
 
 @Entity
 @Table(name = "todo")
-public class Todo
-{
+public class Todo {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long todoid;
 
-    private String descrriptopn;
-    private double datetime;
+    private String description;
+
+    @CreatedDate
+    private Date datestarted;
+
     private boolean completed;
 
-    @OneToMany(mappedBy = "todo",
-                cascade = CascadeType.ALL)
-    @JsonIgnoreProperties("todo")
-    private List<User> userid = new ArrayList<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "userid",
+            nullable = false)
+    @JsonIgnoreProperties({"todos"})
+    private User user;
 
-    public Todo() {
+    public Todo(String description, Date datestarted, User user) {
+        this.description = description;
+        this.datestarted = datestarted;
+        this.user = user;
     }
 
-    public Todo(String descrriptopn, double datetime, boolean completed, List<User> userid) {
-        this.descrriptopn = descrriptopn;
-        this.datetime = datetime;
-        this.completed = completed;
-        this.userid = userid;
+    public Todo() {
     }
 
     public long getTodoid() {
@@ -41,20 +45,20 @@ public class Todo
         this.todoid = todoid;
     }
 
-    public String getDescrriptopn() {
-        return descrriptopn;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDescrriptopn(String descrriptopn) {
-        this.descrriptopn = descrriptopn;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public double getDatetime() {
-        return datetime;
+    public Date getDatestarted() {
+        return datestarted;
     }
 
-    public void setDatetime(double datetime) {
-        this.datetime = datetime;
+    public void setDatestarted(Date datestarted) {
+        this.datestarted = datestarted;
     }
 
     public boolean isCompleted() {
@@ -62,14 +66,17 @@ public class Todo
     }
 
     public void setCompleted(boolean completed) {
-        this.completed = completed;
+        this.completed = false;
     }
 
-    public List<User> getUserid() {
-        return userid;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserid(List<User> userid) {
-        this.userid = userid;
+    public void setUser(User user) {
+        this.user = user;
     }
+
+
+
 }
