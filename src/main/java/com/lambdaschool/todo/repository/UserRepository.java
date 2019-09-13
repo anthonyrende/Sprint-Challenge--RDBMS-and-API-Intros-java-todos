@@ -1,9 +1,9 @@
 package com.lambdaschool.todo.repository;
 
-import com.lambdaschool.todo.model.Users;
+import com.lambdaschool.todo.model.User;
 import org.springframework.data.repository.CrudRepository;
 
-public interface UserRepository extends CrudRepository<Users, Long>
+public interface UserRepository extends CrudRepository<User, Long>
 {
-    Users findByUsername(String username);
+    User findByUsername(String username);
 }

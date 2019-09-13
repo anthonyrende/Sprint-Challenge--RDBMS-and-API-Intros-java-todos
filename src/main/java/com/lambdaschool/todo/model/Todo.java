@@ -21,12 +21,12 @@ public class Todo
     @OneToMany(mappedBy = "todo",
                 cascade = CascadeType.ALL)
     @JsonIgnoreProperties("todo")
-    private List<Users> userid = new ArrayList<>();
+    private List<User> userid = new ArrayList<>();
 
     public Todo() {
     }
 
-    public Todo(String descrriptopn, double datetime, boolean completed, List<Users> userid) {
+    public Todo(String descrriptopn, double datetime, boolean completed, List<User> userid) {
         this.descrriptopn = descrriptopn;
         this.datetime = datetime;
         this.completed = completed;
@@ -65,11 +65,11 @@ public class Todo
         this.completed = completed;
     }
 
-    public List<Users> getUserid() {
+    public List<User> getUserid() {
         return userid;
     }
 
-    public void setUserid(List<Users> userid) {
+    public void setUserid(List<User> userid) {
         this.userid = userid;
     }
 }

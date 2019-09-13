@@ -16,7 +16,7 @@ Specifically
 
 ## Introduction
 
-This is a basic todo database scheme with users and a todo list.
+This is a basic todo database scheme with user and a todo list.
 
 ## Instructions
 
@@ -51,8 +51,8 @@ The table layouts are as follows:
 
 Expose the following end points
 
-* GET /users/mine - return the user and todo based off of the authenticated user. You can only look up your own. It is okay if this also lists the users roles and authorities.
-* POST /users - adds a user. Can only be done by an admin.
+* GET /user/mine - return the user and todo based off of the authenticated user. You can only look up your own. It is okay if this also lists the user roles and authorities.
+* POST /user - adds a user. Can only be done by an admin.
 ```
 {
     "username": "cinnamon",
@@ -77,7 +77,7 @@ Expose the following end points
 }
 ```
 
-* POST /users/todo/{userid} - adds a todo to the assigned user. Can be done by any user. You can add this todo
+* POST /user/todo/{userid} - adds a todo to the assigned user. Can be done by any user. You can add this todo
 ```
 {
     "description": "Have Fun",
@@ -92,7 +92,7 @@ Expose the following end points
 }
 ```
 
-* DELETE /users/userid/{userid} - Deletes a user based off of their userid and deletes all their associated todos. Can only be done by an admin.
+* DELETE /user/userid/{userid} - Deletes a user based off of their userid and deletes all their associated todos. Can only be done by an admin.
 
 
 * hint - think about taking the project https://github.com/LambdaSchool/java-oauth2.git and modifying it to fit this application
@@ -102,6 +102,6 @@ Expose the following end points
 
 * Update the end points below:
 
-  * POST /users/todo/{userid} - adds a todo to the assigned user. Can only be done by the authenticated user. A user can only modify their own data.
+  * POST /user/todo/{userid} - adds a todo to the assigned user. Can only be done by the authenticated user. A user can only modify their own data.
   
   * PUT /todos/todoid/{todoid} - updates a todo based on todoid. Can only be done by the authenticated user. A user can only modify their own data.

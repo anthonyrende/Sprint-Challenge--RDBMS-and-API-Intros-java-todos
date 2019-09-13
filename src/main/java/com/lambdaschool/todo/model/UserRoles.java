@@ -2,7 +2,7 @@ package com.lambdaschool.todo.model;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
+import com.lambdaschool.authenticatedusers.model.User;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,13 +15,13 @@ public class UserRoles {
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnoreProperties({"userRoles", "hibernateLazyInitializer"})
     @JoinColumn(name = "userid")
-    private Users users;
+    private User user;
 
     @Id
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "roleid")
     @JsonIgnoreProperties({"userRoles", "hibernateLazyInitializer"})
-    private Roles role;
+    private Role role;
 
     @OneToMany(mappedBy = "role",
             cascade = CascadeType.ALL)
@@ -31,19 +31,19 @@ public class UserRoles {
     public UserRoles() {
     }
 
-    public Users getUsers() {
-        return users;
+    public User getUser() {
+        return user;
     }
 
-    public void setUsers(Users users) {
-        this.users = users;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public Roles getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(Roles role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 
