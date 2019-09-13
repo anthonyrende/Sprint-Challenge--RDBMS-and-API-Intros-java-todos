@@ -1,12 +1,10 @@
-package com.lambdaschool.authenticatedusers.service;
-
+package com.lambdaschool.todo.service;
 
 import com.lambdaschool.todo.model.Todo;
 import com.lambdaschool.todo.model.User;
 import com.lambdaschool.todo.model.UserRoles;
 import com.lambdaschool.todo.repository.RoleRepository;
 import com.lambdaschool.todo.repository.UserRepository;
-import com.lambdaschool.todo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -68,28 +66,28 @@ public class UserServiceImpl implements UserDetailsService, UserService
         }
     }
 
-//    @Transactional
-//    @Override
-//    public User save(User user)
-//    {
-//        User newUser = new User();
-//        newUser.setUsername(user.getUsername());
-//        newUser.setPasswordNoEncrypt(user.getPassword());
-//
-//        ArrayList<UserRoles> newRoles = new ArrayList<>();
-//        for (UserRoles ur : user.getUserRoles())
+    @Transactional
+    @Override
+    public User save(User user)
+    {
+        User newUser = new User();
+        newUser.setUsername(user.getUsername());
+        newUser.setPasswordNoEncrypt(user.getPassword());
+
+        ArrayList<UserRoles> newRoles = new ArrayList<>();
+        for (UserRoles ur : user.getUserRoles())
+        {
+            newRoles.add(new UserRoles(newUser, ur.getRole()));
+        }
+        newUser.setUserRoles(newRoles);
+
+//        for (Todo q : user.get())
 //        {
-//            newRoles.add(new UserRoles(newUser, ur.getRole()));
+//            newUser.getQuotes().add( new Quote(q.getQuote(), newUser));
 //        }
-//        newUser.setUserRoles(newRoles);
-//
-//        for (Todo q : user.getTodos())
-//        {
-//            newUser.getTodos().add( new Todo(q.get(), newUser));
-//        }
-//
-//        return userrepos.save(newUser);
-//    }
+
+        return userrepos.save(newUser);
+    }
 
     @Override
     public User findUserByName(String name)
@@ -105,41 +103,41 @@ public class UserServiceImpl implements UserDetailsService, UserService
             throw new EntityNotFoundException(name);
         }
     }
-//
-//    @Transactional
-//    @Override
-//    public User update(User user, long id)
-//    {
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        User currentUser = userrepos.findByUsername(authentication.getName());
-//
-//        if (currentUser != null)
-//        {
-//            if (id == currentUser.getUserid())
-//            {
-//                if (user.getUsername() != null)
-//                {
-//                    currentUser.setUsername(user.getUsername());
-//                }
-//
-//                if (user.getPassword() != null)
-//                {
-//                    currentUser.setPasswordNoEncrypt(user.getPassword());
-//                }
-//
-//                if (user.getUserRoles().size() > 0)
-//                {
-//                    // with so many relationships happening, I decided to go
-//                    // with old school queries
-//                    // delete the old ones
-//                    rolerepos.deleteUserRolesByUserId(currentUser.getUserid());
-//
-//                    // add the new ones
-//                    for (UserRoles ur : user.getUserRoles())
-//                    {
-//                        rolerepos.insertUserRoles(id, ur.getRole().getRoleid());
-//                    }
-//                }
+
+    @Transactional
+    @Override
+    public User update(User user, long id)
+    {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User currentUser = userrepos.findByUsername(authentication.getName());
+
+        if (currentUser != null)
+        {
+            if (id == currentUser.getUserid())
+            {
+                if (user.getUsername() != null)
+                {
+                    currentUser.setUsername(user.getUsername());
+                }
+
+                if (user.getPassword() != null)
+                {
+                    currentUser.setPasswordNoEncrypt(user.getPassword());
+                }
+
+                if (user.getUserRoles().size() > 0)
+                {
+                    // with so many relationships happening, I decided to go
+                    // with old school queries
+                    // delete the old ones
+                    rolerepos.deleteUserRolesByUserId(currentUser.getUserid());
+
+                    // add the new ones
+                    for (UserRoles ur : user.getUserRoles())
+                    {
+                        rolerepos.insertUserRoles(id, ur.getRole().getRoleid());
+                    }
+                }
 //
 //                if (user.getQuotes().size() > 0)
 //                {
@@ -148,17 +146,17 @@ public class UserServiceImpl implements UserDetailsService, UserService
 //                        currentUser.getQuotes().add( new Quote(q.getQuote(), currentUser));
 //                    }
 //                }
-//                return userrepos.save(currentUser);
-//            }
-//            else
-//            {
-//                throw new EntityNotFoundException(Long.toString(id) + " Not current user");
-//            }
-//        }
-//        else
-//        {
-//            throw new EntityNotFoundException(authentication.getName());
-//        }
-//
-//    }
+                return userrepos.save(currentUser);
+            }
+            else
+            {
+                throw new EntityNotFoundException(Long.toString(id) + " Not current user");
+            }
+        }
+        else
+        {
+            throw new EntityNotFoundException(authentication.getName());
+        }
+
+    }
 }

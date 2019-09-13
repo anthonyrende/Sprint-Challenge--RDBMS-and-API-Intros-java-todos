@@ -2,7 +2,6 @@ package com.lambdaschool.todo.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.springframework.data.domain.Auditable;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -32,11 +31,11 @@ public class User extends Auditable
     @JsonIgnoreProperties("user")
     private List<UserRoles> userRoles = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true)
-    @JsonIgnoreProperties("user")
-    private List<Todo> todos = new ArrayList<>();
+//    @OneToMany(mappedBy = "user",
+//            cascade = CascadeType.ALL,
+//            orphanRemoval = true)
+//    @JsonIgnoreProperties("user")
+//    private List<Quote> quotes = new ArrayList<>();
 
     public User()
     {
@@ -84,14 +83,6 @@ public class User extends Auditable
         this.password = passwordEncoder.encode(password);
     }
 
-    public List<Todo> getTodos() {
-        return todos;
-    }
-
-    public void setTodos(List<Todo> todos) {
-        this.todos = todos;
-    }
-
     public void setPasswordNoEncrypt(String password)
     {
         this.password = password;
@@ -106,6 +97,16 @@ public class User extends Auditable
     {
         this.userRoles = userRoles;
     }
+
+//    public List<Quote> getQuotes()
+//    {
+//        return quotes;
+//    }
+//
+//    public void setQuotes(List<Quote> quotes)
+//    {
+//        this.quotes = quotes;
+//    }
 
     public List<SimpleGrantedAuthority> getAuthority()
     {

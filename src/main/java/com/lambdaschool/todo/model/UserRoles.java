@@ -1,16 +1,17 @@
 package com.lambdaschool.todo.model;
 
 
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.lambdaschool.authenticatedusers.model.User;
+
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.Serializable;
+import java.util.Objects;
 
 @Entity
 @Table(name = "userroles")
-public class UserRoles {
-
+public class UserRoles extends Auditable implements Serializable
+{
     @Id
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnoreProperties({"userRoles", "hibernateLazyInitializer"})
@@ -23,35 +24,54 @@ public class UserRoles {
     @JsonIgnoreProperties({"userRoles", "hibernateLazyInitializer"})
     private Role role;
 
-    @OneToMany(mappedBy = "role",
-            cascade = CascadeType.ALL)
-    @JsonIgnoreProperties("role")
-    private List<UserRoles> userRoles = new ArrayList<>();
-
-    public UserRoles() {
+    public UserRoles()
+    {
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
+    public UserRoles(User user, Role role)
+    {
         this.user = user;
-    }
-
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
         this.role = role;
     }
 
-    public List<UserRoles> getUserRoles() {
-        return userRoles;
+    public User getUser()
+    {
+        return user;
     }
 
-    public void setUserRoles(List<UserRoles> userRoles) {
-        this.userRoles = userRoles;
+    public void setUser(User user)
+    {
+        this.user = user;
+    }
+
+    public Role getRole()
+    {
+        return role;
+    }
+
+    public void setRole(Role role)
+    {
+        this.role = role;
+    }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if (this == o)
+        {
+            return true;
+        }
+        if (!(o instanceof UserRoles))
+        {
+            return false;
+        }
+        UserRoles userRoles = (UserRoles) o;
+        return getUser().equals(userRoles.getUser()) && getRole().equals(userRoles.getRole());
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return Objects.hash(getUser(), getRole());
     }
 }

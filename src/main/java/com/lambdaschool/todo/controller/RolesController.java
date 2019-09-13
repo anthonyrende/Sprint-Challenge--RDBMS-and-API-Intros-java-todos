@@ -1,9 +1,8 @@
 package com.lambdaschool.todo.controller;
 
-import com.lambdaschool.authenticatedusers.model.Role;
-import com.lambdaschool.authenticatedusers.service.RoleService;
+import com.lambdaschool.todo.model.Role;
+import com.lambdaschool.todo.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Role;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -63,4 +62,3 @@ public class RolesController
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
-

@@ -1,8 +1,7 @@
 package com.lambdaschool.todo.controller;
 
-import com.lambdaschool.authenticatedusers.model.User;
-import com.lambdaschool.authenticatedusers.service.UserService;
 import com.lambdaschool.todo.model.User;
+import com.lambdaschool.todo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
