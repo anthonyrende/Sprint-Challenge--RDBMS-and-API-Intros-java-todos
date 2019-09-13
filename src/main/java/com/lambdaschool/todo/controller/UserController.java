@@ -24,6 +24,7 @@ public class UserController
     @Autowired
     private UserService userService;
 
+
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
 
 
@@ -35,26 +36,9 @@ public class UserController
     }
 
 
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    @GetMapping(value = "/user/{userId}", produces = {"application/json"})
-    public ResponseEntity<?> getUser(@PathVariable Long userId)
-    {
-        User u = userService.findUserById(userId);
-        return new ResponseEntity<>(u, HttpStatus.OK);
-    }
-
-
-    @GetMapping(value = "/getusername", produces = {"application/json"})
-    @ResponseBody
-    public ResponseEntity<?> getCurrentUserName(Authentication authentication)
-    {
-        return new ResponseEntity<>(userService.findUserByName(authentication.getName()), HttpStatus.OK);
-        // return new ResponseEntity<>(userService.findUserByName(authentication.getName()).getUserid(), HttpStatus.OK);
-    }
-
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    @PostMapping(value = "/user", consumes = {"application/json"}, produces = {"application/json"})
+    @PostMapping(value = "/", consumes = {"application/json"}, produces = {"application/json"})
     public ResponseEntity<?> addNewUser(@Valid @RequestBody User newuser) throws URISyntaxException
     {
         newuser =  userService.save(newuser);
@@ -72,7 +56,7 @@ public class UserController
     }
 
 
-    @PutMapping(value = "/user/{id}")
+    @PutMapping(value = "/todo/{id}")
     public ResponseEntity<?> updateUser(@RequestBody User updateUser, @PathVariable long id)
     {
         userService.update(updateUser, id);
@@ -81,7 +65,7 @@ public class UserController
 
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    @DeleteMapping("/user/{id}")
+    @DeleteMapping("/userid/{id}")
     public ResponseEntity<?> deleteUserById(@PathVariable long id)
     {
         userService.delete(id);

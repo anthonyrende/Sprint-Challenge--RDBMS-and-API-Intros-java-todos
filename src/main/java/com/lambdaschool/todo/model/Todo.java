@@ -9,7 +9,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "todo")
-public class Todo {
+public class Todo extends Auditable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -18,6 +18,7 @@ public class Todo {
     private String description;
 
     @CreatedDate
+    @Temporal(TemporalType.TIMESTAMP)
     private Date datestarted;
 
     private boolean completed;
@@ -25,7 +26,7 @@ public class Todo {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userid",
             nullable = false)
-    @JsonIgnoreProperties({"todos"})
+    @JsonIgnoreProperties({"todos", "hibernateLazyInitializer"})
     private User user;
 
     public Todo(String description, Date datestarted, User user) {

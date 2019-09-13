@@ -9,6 +9,6 @@ import java.util.ArrayList;
 
 public interface ToDoRepository extends CrudRepository<Todo, Long>
 {
-    @Query(value = "SELECT u.username, count(t.todoid) as counttodos FROM todos t JOIN users u on t.userid = u.userid GROUP BY u.username", nativeQuery = true)
-    ArrayList<CountTodos> getCountTodos();
+//    @Query(value = "SELECT u.username, count(t.todoid) as counttodos FROM todos t JOIN users u on t.userid = u.userid GROUP BY u.username", nativeQuery = true)
+//    ArrayList<CountTodos> getCountTodos();
 }

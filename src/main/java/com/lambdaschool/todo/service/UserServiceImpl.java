@@ -81,10 +81,10 @@ public class UserServiceImpl implements UserDetailsService, UserService
         }
         newUser.setUserRoles(newRoles);
 
-//        for (Todo q : user.get())
-//        {
-//            newUser.getQuotes().add( new Quote(q.getQuote(), newUser));
-//        }
+        for (Todo q : user.getTodos())
+        {
+            newUser.getTodos().add( new Todo(q.getDescription(), q.getDatestarted(), newUser));
+        }
 
         return userrepos.save(newUser);
     }
@@ -138,14 +138,14 @@ public class UserServiceImpl implements UserDetailsService, UserService
                         rolerepos.insertUserRoles(id, ur.getRole().getRoleid());
                     }
                 }
-//
-//                if (user.getQuotes().size() > 0)
-//                {
-//                    for (Quote q : user.getQuotes())
-//                    {
-//                        currentUser.getQuotes().add( new Quote(q.getQuote(), currentUser));
-//                    }
-//                }
+
+                if (user.getTodos().size() > 0)
+                {
+                    for (Todo q : user.getTodos())
+                    {
+                        currentUser.getTodos().add( new Todo(q.getDescription(), q.getDatestarted(), currentUser));
+                    }
+                }
                 return userrepos.save(currentUser);
             }
             else

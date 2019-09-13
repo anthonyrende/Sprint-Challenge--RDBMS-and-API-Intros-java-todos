@@ -18,8 +18,8 @@ public class TodoController
     TodoService todoService;
 
 
-    @PutMapping(value = "/todos/{todoid}")
-    public ResponseEntity<?> updateQuote(
+    @PutMapping(value = "/todoid/{todoid}")
+    public ResponseEntity<?> updateTodo(
             @RequestBody
                     Todo updateTodo,
             @PathVariable

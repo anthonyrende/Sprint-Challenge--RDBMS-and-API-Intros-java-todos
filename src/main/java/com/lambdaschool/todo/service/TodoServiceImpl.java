@@ -13,17 +13,17 @@ import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
-@Service(value = "quoteService")
+@Service(value = "todoService")
 public class TodoServiceImpl implements TodoService
 {
     @Autowired
     private ToDoRepository todorepos;
 
-    @Override
-    public ArrayList<CountTodos> getCountTodos()
-    {
-        return todorepos.getCountTodos();
-    }
+//    @Override
+//    public ArrayList<CountTodos> getCountTodos()
+//    {
+//        return todorepos.getCountTodos();
+//    }
 
     @Override
     public List<Todo> findAll()
@@ -42,20 +42,26 @@ public class TodoServiceImpl implements TodoService
     @Override
     public void delete(long id)
     {
-        if (todorepos.findById(id).isPresent())
+
+        if(todorepos.findById(id).isPresent())
         {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            if (todorepos.findById(id).get().getUser().getUsername().equalsIgnoreCase(authentication.getName()))
+
+            if(todorepos.findById(id).get().getUser().getUsername().equalsIgnoreCase(authentication.getName()))
             {
                 todorepos.deleteById(id);
-            } else
+
+            }else
+
             {
+
                 throw new EntityNotFoundException(Long.toString(id) + " " + authentication.getName());
             }
-        } else
+        }else
         {
             throw new EntityNotFoundException(Long.toString(id));
         }
+
     }
 
     @Transactional
@@ -80,17 +86,14 @@ public class TodoServiceImpl implements TodoService
     {
         Todo newTodo = todorepos.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(Long.toString(id)));
-
-        if (todo.getDescription() != null)
+        if(todo.getDescription() != null)
         {
             newTodo.setDescription(todo.getDescription());
         }
-
-        if (todo.getUser() != null)
+        if(todo.getUser() != null)
         {
             newTodo.setUser(todo.getUser());
         }
-
         return todorepos.save(newTodo);
     }
 }
