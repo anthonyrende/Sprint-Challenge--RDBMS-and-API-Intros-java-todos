@@ -26,10 +26,11 @@ public class Todo
     public Todo() {
     }
 
-    public Todo(String descrriptopn, double datetime, boolean completed) {
+    public Todo(String descrriptopn, double datetime, boolean completed, List<Users> userid) {
         this.descrriptopn = descrriptopn;
         this.datetime = datetime;
         this.completed = completed;
+        this.userid = userid;
     }
 
     public long getTodoid() {
