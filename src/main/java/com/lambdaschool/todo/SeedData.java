@@ -1,4 +1,18 @@
-// provided by Vivek Vishwanath
+package com.lambdaschool.todo;// provided by Vivek Vishwanath
+
+import com.lambdaschool.todo.model.Role;
+import com.lambdaschool.todo.model.Todo;
+import com.lambdaschool.todo.model.User;
+import com.lambdaschool.todo.model.UserRoles;
+import com.lambdaschool.todo.repository.RoleRepository;
+import com.lambdaschool.todo.repository.ToDoRepository;
+import com.lambdaschool.todo.repository.UserRepository;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.Date;
 
 @Transactional
 @Component
