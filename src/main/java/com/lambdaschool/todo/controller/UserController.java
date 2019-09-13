@@ -25,7 +25,9 @@ public class UserController
     private UserService userService;
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    @GetMapping(value = "/users", produces = {"application/json"})
+
+
+    @GetMapping(value = "/mine", produces = {"application/json"})
     public ResponseEntity<?> listAllUsers()
     {
         List<User> myUsers = userService.findAll();

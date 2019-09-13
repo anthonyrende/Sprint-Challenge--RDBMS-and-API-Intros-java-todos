@@ -1,4 +1,4 @@
-package com.lambdaschool.authenticatedusers.service;
+package com.lambdaschool.todo.service;
 
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.security.core.Authentication;
